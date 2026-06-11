@@ -8,6 +8,8 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from model18.ablation import apply_cli_overrides, load_ablation_config
+from model18.io_utils import load_json
 from model18.pipeline import run_ensemble_pipeline
 
 
@@ -19,9 +21,13 @@ def main() -> None:
     parser.add_argument("--samples", type=int, default=200)
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--seed", type=int, default=18)
+    parser.add_argument("--disable", action="append", default=[], help="Disable ablation module, e.g. geometry/contact/pdb/visualization/dssp_position")
+    parser.add_argument("--enable", action="append", default=[], help="Enable optional module, e.g. stress_adjusted/early_smd/learned_ranking")
     args = parser.parse_args()
     sequence = args.sequence or ("Q" * args.length)
-    summary = run_ensemble_pipeline(args.config, sequence, n_samples=args.samples, top_k=args.top_k, seed=args.seed)
+    cfg = load_json(args.config)
+    ablation = apply_cli_overrides(load_ablation_config(cfg.get("ablation", {})), disabled=args.disable, enabled=args.enable)
+    summary = run_ensemble_pipeline(args.config, sequence, n_samples=args.samples, top_k=args.top_k, seed=args.seed, ablation=ablation)
     print("model18 complete")
     for key, value in summary.items():
         print(f"{key}: {value}")

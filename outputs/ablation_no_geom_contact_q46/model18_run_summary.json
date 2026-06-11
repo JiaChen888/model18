@@ -1,0 +1,29 @@
+{
+  "sequence_length":46,
+  "n_dssp_samples":50,
+  "top_k":5,
+  "consensus_dssp":"SSSISSTTTSSSSSSSISISSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "ablation":{
+    "use_dssp_position":true,
+    "use_dssp_composition":true,
+    "use_geometry":false,
+    "use_contact":false,
+    "use_stress_adjusted_dssp":false,
+    "use_early_smd_filter":false,
+    "use_learned_ranking":false,
+    "export_pdb":false,
+    "make_visualization":false,
+    "dssp_position_weight":0.45,
+    "dssp_composition_weight":0.25,
+    "geometry_weight":0.2,
+    "contact_weight":0.1
+  },
+  "probability_profile":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/ablation_no_geom_contact_q46\/dssp_probability_profile.csv",
+  "frequency_table":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/ablation_no_geom_contact_q46\/sampled_dssp_frequency.csv",
+  "ranked_scores":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/ablation_no_geom_contact_q46\/top_ranked_conformer_scores.csv",
+  "pdb_files":[
+
+  ],
+  "cartoon3d_png":null,
+  "pymol_script":null
+}

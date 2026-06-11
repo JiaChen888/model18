@@ -41,6 +41,45 @@ These tables contain Q36/Q46 independent MD features and model12/model16-derived
 
 
 
+
+
+## Ablation Switches
+
+model18 reserves configurable ablation switches for later systematic experiments:
+
+```text
+use_dssp_position
+use_dssp_composition
+use_geometry
+use_contact
+use_stress_adjusted_dssp
+use_early_smd_filter
+use_learned_ranking
+export_pdb
+make_visualization
+```
+
+Fast ablation smoke test:
+
+```bash
+python3 scripts/run_model18_ensemble.py --config configs/ablation_no_geom_contact_q46.json --length 46 --samples 50 --top-k 5
+```
+
+Equivalent CLI override:
+
+```bash
+python3 scripts/run_model18_ensemble.py --length 46 --disable geometry --disable contact --disable pdb --disable visualization
+```
+
+Each run records:
+
+```text
+ablation_config_used.json
+model18_run_summary.json
+```
+
+See `docs/MODEL18_ABLATION_SWITCHES.md`.
+
 ## SMD 300-Sample Library Status
 
 The complete Q22/Q36/Q46 300-sample SMD library is not yet fully read into model18. A local audit found:

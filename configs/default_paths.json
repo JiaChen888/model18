@@ -2,5 +2,20 @@
   "model17_temporal_table": "../model17_q46md_temporal_contact/tables/model17_multilength_temporal_contact_table.csv",
   "model17_geometry_table": "../model17_q46md_temporal_contact/tables/independent_md_multilength_geometry_contact_features.csv",
   "model17_contact_manifest": "../model17_q46md_temporal_contact/tables/independent_md_multilength_contact_map_manifest.csv",
-  "output_dir": "outputs/demo_q46"
+  "output_dir": "outputs/demo_q46",
+  "ablation": {
+    "use_dssp_position": true,
+    "use_dssp_composition": true,
+    "use_geometry": true,
+    "use_contact": true,
+    "use_stress_adjusted_dssp": false,
+    "use_early_smd_filter": false,
+    "use_learned_ranking": false,
+    "export_pdb": true,
+    "make_visualization": true,
+    "dssp_position_weight": 0.45,
+    "dssp_composition_weight": 0.25,
+    "geometry_weight": 0.2,
+    "contact_weight": 0.1
+  }
 }

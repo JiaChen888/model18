@@ -1,0 +1,15 @@
+{
+  "use_dssp_position": true,
+  "use_dssp_composition": true,
+  "use_geometry": false,
+  "use_contact": false,
+  "use_stress_adjusted_dssp": false,
+  "use_early_smd_filter": false,
+  "use_learned_ranking": false,
+  "export_pdb": false,
+  "make_visualization": false,
+  "dssp_position_weight": 0.45,
+  "dssp_composition_weight": 0.25,
+  "geometry_weight": 0.2,
+  "contact_weight": 0.1
+}

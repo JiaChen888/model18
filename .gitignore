@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+outputs/*/pdb/
+*.pse
+
+# Keep generated summary/figures if desired, but exclude huge raw trajectories.
+*.xtc
+*.trr
+*.tpr
+*.edr

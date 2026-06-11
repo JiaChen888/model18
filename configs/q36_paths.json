@@ -1,0 +1,6 @@
+{
+  "model17_temporal_table": "../model17_q46md_temporal_contact/tables/model17_multilength_temporal_contact_table.csv",
+  "model17_geometry_table": "../model17_q46md_temporal_contact/tables/independent_md_multilength_geometry_contact_features.csv",
+  "model17_contact_manifest": "../model17_q46md_temporal_contact/tables/independent_md_multilength_contact_map_manifest.csv",
+  "output_dir": "outputs/demo_q36"
+}

@@ -1,0 +1,18 @@
+{
+  "sequence_length":36,
+  "n_dssp_samples":100,
+  "top_k":5,
+  "consensus_dssp":"SSISSSTHTSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "probability_profile":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/dssp_probability_profile.csv",
+  "frequency_table":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/sampled_dssp_frequency.csv",
+  "ranked_scores":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/top_ranked_conformer_scores.csv",
+  "pdb_files":[
+    "\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/pdb\/Q36_rank01_Q36_v2_frame22000.pdb",
+    "\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/pdb\/Q36_rank02_Q36_v2_frame39000.pdb",
+    "\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/pdb\/Q36_rank03_Q36_v2_frame15000.pdb",
+    "\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/pdb\/Q36_rank04_Q36_v2_frame40000.pdb",
+    "\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/pdb\/Q36_rank05_Q36_v2_frame39500.pdb"
+  ],
+  "cartoon3d_png":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/model18_top_conformer_cartoon3d.png",
+  "pymol_script":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/open_in_pymol.pml"
+}

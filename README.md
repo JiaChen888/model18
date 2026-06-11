@@ -39,6 +39,44 @@ The default implementation uses model17 tables as the trajectory/probability bac
 
 These tables contain Q36/Q46 independent MD features and model12/model16-derived SS8 soft probabilities. No mkdssp is used.
 
+
+
+## SMD 300-Sample Library Status
+
+The complete Q22/Q36/Q46 300-sample SMD library is not yet fully read into model18. A local audit found:
+
+```text
+Q22: 252 run directories, 239 ready_basic
+Q36: 188 run directories, 174 ready_basic
+Q46: 80 run directories, 56 ready_basic
+```
+
+Current model18 retrieval backend still uses the model17 independent MD subset:
+
+```text
+Q46-MD main/v2/v3/1000ns + Q36-MD/v2
+runs = 5
+frames = 629
+Q22 not yet included in model18 retrieval backend
+```
+
+New modules have been added for the requested upgrades:
+
+```text
+model18/smd_audit.py
+model18/early_smd_filter.py
+model18/stress_adjusted_dssp.py
+model18/learned_ranking.py
+```
+
+See:
+
+```text
+docs/POLYQ_SMD_TRAJECTORY_LIBRARY_AUDIT.csv
+docs/POLYQ_SMD_TRAJECTORY_LIBRARY_AUDIT_SUMMARY.csv
+docs/MODEL18_SMD_300_LIBRARY_AUDIT_AND_OPTIMIZATION.md
+```
+
 ## Run Demo
 
 ```bash

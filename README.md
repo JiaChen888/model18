@@ -43,6 +43,39 @@ These tables contain Q36/Q46 independent MD features and model12/model16-derived
 
 
 
+
+
+## Preprocessed Clean 300 Database
+
+Training, epoch comparison, and ablation experiments should use the clean 300 preprocessed database:
+
+```text
+/media/zj/f6835876-8873-4931-8383-70fe383c9b741/IDPss-output/preprocess_data_current_clean_300_model10v2_threshold50_65_78_20260605
+```
+
+model18 provides three preprocessing/indexing steps that reuse this saved database instead of recomputing every trajectory each time:
+
+```bash
+./scripts/run_model18_preprocess_steps.sh
+```
+
+Detected ready samples:
+
+```text
+Q22 = 111
+Q36 = 103
+Q46 = 86
+Total = 300
+```
+
+Generated manifest:
+
+```text
+outputs/preprocess_db_current_clean_300/model18_training_manifest.csv
+```
+
+See `docs/MODEL18_PREPROCESS_DATABASE.md`.
+
 ## Ablation Switches
 
 model18 reserves configurable ablation switches for later systematic experiments:

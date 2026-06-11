@@ -76,6 +76,32 @@ outputs/preprocess_db_current_clean_300/model18_training_manifest.csv
 
 See `docs/MODEL18_PREPROCESS_DATABASE.md`.
 
+
+
+## Clean-300 Training Entry
+
+Training now reads only the saved clean-300 preprocessing database through:
+
+```text
+outputs/preprocess_db_current_clean_300/model18_training_manifest.csv
+```
+
+Smoke-tested trainer:
+
+```bash
+python3 scripts/train_model18_clean300_baseline.py   --epochs 1   --sample-stride 1000   --max-train-rows 50000   --max-test-rows 20000   --outdir outputs/train_smoke_clean300_epoch1
+```
+
+Smoke result:
+
+```text
+accuracy = 0.7647
+macro F1 = 0.4247
+device = cuda
+```
+
+Full epoch commands and ablation commands are documented in `docs/MODEL18_CLEAN300_TRAINING_AND_ABLATION.md`.
+
 ## Ablation Switches
 
 model18 reserves configurable ablation switches for later systematic experiments:

@@ -96,3 +96,44 @@ model16: calibrated probability layer
 model17: temporal/contact MD expansion
 model18: modular DSSP-to-3D ensemble reconstruction pipeline
 ```
+
+
+## Full Test Status
+
+A complete Q36/Q46 test was run after the modular split.
+
+```text
+python3 -m py_compile model18/*.py scripts/*.py
+python3 scripts/run_model18_ensemble.py --length 46 --samples 200 --top-k 5
+python3 scripts/run_model18_ensemble.py --config configs/q36_paths.json --length 36 --samples 200 --top-k 5
+```
+
+Validation results:
+
+```text
+Q46: 5 full-protein PDB files, each 785 ATOM records and 46 CA atoms
+Q36: 5 full-protein PDB files, each 615 ATOM records and 36 CA atoms
+PNG/PML/CSV outputs generated for both groups
+```
+
+Detailed reports:
+
+```text
+docs/MODEL18_FULL_TEST_REPORT.md
+docs/MODEL18_FULL_TEST_PDB_CHECK.csv
+docs/MODEL18_SCI_FIGURE_AND_WRITING_PLAN.md
+```
+
+## SCI Figure Recommendation
+
+Use these as the main manuscript candidates:
+
+```text
+1. docs/MODEL18_ARCHITECTURE.svg
+2. Q36/Q46 DSSP probability and sampled-frequency profiles
+3. outputs/demo_q46/model18_top_conformer_cartoon3d.png
+4. outputs/demo_q36/model18_top_conformer_cartoon3d.png
+5. outputs/sci_figures/demo_q36_score_decomposition.png
+6. outputs/sci_figures/demo_q46_score_decomposition.png
+7. PyMOL ray-traced images generated from open_in_pymol.pml
+```

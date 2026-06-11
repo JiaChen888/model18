@@ -1,8 +1,8 @@
 {
   "sequence_length":36,
-  "n_dssp_samples":100,
+  "n_dssp_samples":200,
   "top_k":5,
-  "consensus_dssp":"SSISSSTHTSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "consensus_dssp":"SSSSSSTTTSSSSSSSSSSSSSSSSSSSSSSSSSSS",
   "probability_profile":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/dssp_probability_profile.csv",
   "frequency_table":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/sampled_dssp_frequency.csv",
   "ranked_scores":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q36\/top_ranked_conformer_scores.csv",

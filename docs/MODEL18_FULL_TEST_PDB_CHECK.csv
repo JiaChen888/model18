@@ -1,0 +1,11 @@
+demo,pdb,atoms,ca,expected_atoms,expected_ca,ok
+demo_q36,Q36_rank01_Q36_v2_frame22000.pdb,615,36,615,36,True
+demo_q36,Q36_rank02_Q36_v2_frame39000.pdb,615,36,615,36,True
+demo_q36,Q36_rank03_Q36_v2_frame15000.pdb,615,36,615,36,True
+demo_q36,Q36_rank04_Q36_v2_frame40000.pdb,615,36,615,36,True
+demo_q36,Q36_rank05_Q36_v2_frame39500.pdb,615,36,615,36,True
+demo_q46,Q46_rank01_Q46_main_frame24500.pdb,785,46,785,46,True
+demo_q46,Q46_rank02_Q46_v3_frame36500.pdb,785,46,785,46,True
+demo_q46,Q46_rank03_Q46_main_frame8500.pdb,785,46,785,46,True
+demo_q46,Q46_rank04_Q46_1000ns_frame88500.pdb,785,46,785,46,True
+demo_q46,Q46_rank05_Q46_v3_frame41500.pdb,785,46,785,46,True

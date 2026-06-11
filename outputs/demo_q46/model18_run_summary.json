@@ -1,6 +1,6 @@
 {
   "sequence_length":46,
-  "n_dssp_samples":100,
+  "n_dssp_samples":200,
   "top_k":5,
   "consensus_dssp":"SSIISSTTTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
   "probability_profile":"\/home\/zj\/jyxl\/test_project\/516\/graph_idpss\/model18_modular_polyq_ensemble\/outputs\/demo_q46\/dssp_probability_profile.csv",

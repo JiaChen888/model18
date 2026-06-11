@@ -124,6 +124,27 @@ docs/MODEL18_FULL_TEST_PDB_CHECK.csv
 docs/MODEL18_SCI_FIGURE_AND_WRITING_PLAN.md
 ```
 
+
+
+## model17_v2 Backend Epoch Selection
+
+model18 does not train by epoch. The epoch 100/300/500 comparison belongs to the model17_v2 temporal/contact backend.
+
+```text
+epoch100: accuracy = 0.8889, ECE = 0.1216, Brier = 0.2434  recommended
+epoch300: accuracy = 0.8889, ECE = 0.2237, Brier = 0.2731
+epoch500: accuracy = 0.8889, ECE = 0.3194, Brier = 0.3362
+```
+
+Conclusion: use epoch100 as the preferred model17_v2 backend because longer training does not improve top1 accuracy and worsens calibration.
+
+See:
+
+```text
+docs/MODEL18_MODEL17_EPOCH_BACKEND_SELECTION.md
+outputs/sci_figures/model17_v2_epoch100_300_500_backend_comparison.png
+```
+
 ## SCI Figure Recommendation
 
 Use these as the main manuscript candidates:

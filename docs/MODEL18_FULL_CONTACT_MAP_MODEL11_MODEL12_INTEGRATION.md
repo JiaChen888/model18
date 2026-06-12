@@ -170,3 +170,33 @@ Add to model12/model18:
 ```text
 To evaluate whether topological contact information contributed beyond scalar contact descriptors, we added a full contact-map branch derived from the original IDPss/model6 and model11/model12 architectures. The complete residue-residue contact/distance matrix was converted to a sparse top-k contact-strength graph and encoded by a row-wise CNN followed by DenseGraphSAGE message passing. The resulting graph embedding was fused with dynamic geometry and residue descriptors for residue-level SS8 prediction. This branch preserves the model12-centered DSSP objective while restoring the full contact-map representation used in the earlier IDPss framework.
 ```
+
+## Formal Epoch100 Result
+
+Command:
+
+```bash
+python3 scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 500 --batch-size 128 --outdir training_outputs_clean300_full_contact_epoch100
+```
+
+Result:
+
+```text
+accuracy = 0.8430
+macro F1 = 0.5871
+macro precision = 0.6311
+macro recall = 0.5903
+train frames = 3739
+test frames = 797
+test residue-frame labels = 28496
+```
+
+Comparison:
+
+```text
+MLP full baseline:       accuracy = 0.8097, macro F1 = 0.5567
+MLP no-position variant: accuracy = 0.8110, macro F1 = 0.5613
+Full contact-map branch: accuracy = 0.8430, macro F1 = 0.5871
+```
+
+Conclusion: restoring the complete contact/distance-map branch from the older IDPss/model6/model11/model12 design produced a clear improvement. This confirms that the full residue-residue topology contains useful information that was lost when model18 used only scalar contact-map row statistics.

@@ -345,3 +345,37 @@ Recommended formal comparison:
 ```bash
 python3 scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 500 --batch-size 128 --outdir training_outputs_clean300_full_contact_epoch100
 ```
+
+## Current Best Model18 Result
+
+The formal full contact-map epoch100 run is now the best clean-300 model18 result:
+
+```text
+run = training_outputs_clean300_full_contact_epoch100
+model = FullContactMapDSSPModel
+sample_stride = 500
+batch_size = 128
+train frames = 3739
+test frames = 797
+test residue-frame labels = 28496
+accuracy = 0.8430
+macro F1 = 0.5871
+```
+
+This improves over the previous MLP full baseline (`accuracy = 0.8097`, `macro F1 = 0.5567`) and the previous MLP no-position ablation (`accuracy = 0.8110`, `macro F1 = 0.5613`). The current best route is therefore:
+
+```text
+model12-centered DSSP objective
++ model6/model11/model12 full contact-map graph encoder
++ dynamic/contact/residue feature fusion
++ model18 ensemble retrieval and 3D PDB visualization
+```
+
+Result files:
+
+```text
+docs/MODEL18_FULL_CONTACT_EPOCH100_RESULT.md
+docs/MODEL18_FULL_CONTACT_COMPARISON_RESULTS.csv
+outputs/sci_figures/model18_full_contact_vs_mlp_comparison.png
+training_outputs_clean300_full_contact_epoch100/
+```

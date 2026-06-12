@@ -112,3 +112,26 @@ accuracy = 0.7271, macro F1 = 0.1203 after 1 epoch small subset
 ```
 
 Interpretation: this is not yet the formal 100/300/500 result; it proves the full LxL contact/distance map CNN/GNN branch can read clean300 and train. Next formal comparison should run `scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 500`.
+
+## Latest Formal Result: Full Contact-Map Epoch100
+
+The user requested the formal full contact-map training command. Completed:
+
+```bash
+python3 scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 500 --batch-size 128 --outdir training_outputs_clean300_full_contact_epoch100
+```
+
+Result:
+
+```text
+accuracy = 0.8430
+macro F1 = 0.5871
+macro precision = 0.6311
+macro recall = 0.5903
+train frames = 3739
+test frames = 797
+test residue-frame labels = 28496
+device = cuda
+```
+
+Conclusion: full LxL contact/distance map CNN/GNN is now the best model18 branch and outperforms the previous MLP baseline and no-position variant.

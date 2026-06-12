@@ -135,3 +135,32 @@ device = cuda
 ```
 
 Conclusion: full LxL contact/distance map CNN/GNN is now the best model18 branch and outperforms the previous MLP baseline and no-position variant.
+
+## Latest Near-Protocol Model12 vs Model18 Comparison
+
+To better compare with historical model12, model18 full-contact was rerun with sample_stride=100:
+
+```bash
+python3 scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 100 --batch-size 128 --outdir training_outputs_clean300_full_contact_epoch100_stride100
+```
+
+Result:
+
+```text
+accuracy = 0.8736
+macro F1 = 0.6441
+macro precision = 0.6648
+macro recall = 0.6356
+test targets = 135,136
+```
+
+Historical model12 clean300 epoch100:
+
+```text
+accuracy = 0.8805
+macro precision = 0.6779
+macro recall = 0.7214
+test targets = 149,924
+```
+
+Conclusion: model18 full-contact is close but still slightly below historical model12 accuracy. The remaining gap likely comes from model12's old window_size=5 force-window encoder, dynamic auxiliary heads, and regularization/early stopping. Next strongest route: model19/model12-plus-contact-map = model12 force-window/dynamic heads + model18 full LxL contact-map CNN/GNN + model18 3D retrieval.

@@ -1,0 +1,64 @@
+{
+  "train": {
+    "split": "train",
+    "frames": 17697,
+    "sample_stride": 100,
+    "feature_switches": {
+      "use_dynamic": true,
+      "use_contact_features": true,
+      "use_residue_features": true,
+      "use_residue_position": true,
+      "use_full_contact_map": true
+    }
+  },
+  "test": {
+    "split": "test",
+    "frames": 3773,
+    "sample_stride": 100,
+    "feature_switches": {
+      "use_dynamic": true,
+      "use_contact_features": true,
+      "use_residue_features": true,
+      "use_residue_position": true,
+      "use_full_contact_map": true
+    }
+  },
+  "final_metrics": {
+    "accuracy": 0.8735570092351409,
+    "precision_macro": 0.6648176479084953,
+    "recall_macro": 0.6355502904905072,
+    "f1_macro": 0.6441487866980335,
+    "mean_confidence": 0.8313618302345276,
+    "n": 135136,
+    "epoch": 100
+  },
+  "best_metrics": {
+    "accuracy": 0.8735570092351409,
+    "precision_macro": 0.6648176479084953,
+    "recall_macro": 0.6355502904905072,
+    "f1_macro": 0.6441487866980335,
+    "mean_confidence": 0.8313618302345276,
+    "n": 135136,
+    "epoch": 100,
+    "train_loss": 0.07881303731914904
+  },
+  "device": "cuda",
+  "args": {
+    "manifest": "/home/zj/jyxl/test_project/516/graph_idpss/model18_modular_polyq_ensemble/outputs/preprocess_db_current_clean_300/model18_training_manifest.csv",
+    "outdir": "training_outputs_clean300_full_contact_epoch100_stride100",
+    "epochs": 100,
+    "sample_stride": 100,
+    "batch_size": 128,
+    "lr": 0.0003,
+    "dropout": 0.2,
+    "hidden": 128,
+    "graph_dim": 64,
+    "top_n": 12,
+    "max_train_frames": null,
+    "max_test_frames": null,
+    "disable": [],
+    "contact_aux_weight": 0.02,
+    "seed": 18
+  },
+  "model": "FullContactMapDSSPModel"
+}

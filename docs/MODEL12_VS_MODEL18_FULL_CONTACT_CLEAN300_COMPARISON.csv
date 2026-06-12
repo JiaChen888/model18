@@ -1,0 +1,6 @@
+model,run,protocol,strict_same_manifest,window_size,targets,accuracy,precision_macro,recall_macro,f1_macro
+model18_full_contact,training_outputs_clean300_full_contact_epoch100,"clean300 manifest frame-level, stride=500",True,frame,28496,0.8430306007860753,0.631074327370234,0.5903231601523714,0.58709183364365
+model18_full_contact,training_outputs_clean300_full_contact_epoch100_stride100,"clean300 manifest frame-level, stride=100",True,frame,135136,0.8735570092351409,0.6648176479084953,0.6355502904905072,0.6441487866980335
+model12_regularized_multitask,model12_epoch100_independent_history,"clean300 old sampler window_size=5, stride=100, sample split seed42",False,5,149924,0.8804994530562151,0.6779018360481296,0.7213789467623636,
+model12_regularized_multitask,model12_epoch300_independent_history,"clean300 old sampler window_size=5, stride=100, sample split seed42",False,5,149924,0.8690536538512846,0.655295534160407,0.6945358723840086,
+model12_regularized_multitask,model12_epoch500_independent_history,"clean300 old sampler window_size=5, stride=100, sample split seed42",False,5,149924,0.8875030015207706,0.6895737762830237,0.7470695731782252,

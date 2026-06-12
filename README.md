@@ -379,3 +379,32 @@ docs/MODEL18_FULL_CONTACT_COMPARISON_RESULTS.csv
 outputs/sci_figures/model18_full_contact_vs_mlp_comparison.png
 training_outputs_clean300_full_contact_epoch100/
 ```
+
+## Model12 vs Model18 Full-Contact Near-Protocol Comparison
+
+A stride100 model18 full-contact run was completed to better match the historical model12 clean300 settings:
+
+```text
+model18 full-contact stride100 epoch100:
+  accuracy = 0.8736
+  macro F1 = 0.6441
+  macro precision = 0.6648
+  macro recall = 0.6356
+  targets = 135,136
+
+model12 epoch100 historical clean300:
+  accuracy = 0.8805
+  macro precision = 0.6779
+  macro recall = 0.7214
+  targets = 149,924
+```
+
+The protocols are close but not identical. model12 used the old `window_size=5` sampler and force-window encoder; model18 full-contact uses frame-level manifest sampling and does not yet include the full model12 force-window branch. The best next version should merge model12's force-window/dynamic auxiliary heads with model18's full LxL contact-map CNN/GNN branch.
+
+See:
+
+```text
+docs/MODEL12_VS_MODEL18_FULL_CONTACT_CLEAN300_COMPARISON.md
+outputs/sci_figures/model12_vs_model18_full_contact_clean300_comparison.png
+training_outputs_clean300_full_contact_epoch100_stride100/
+```

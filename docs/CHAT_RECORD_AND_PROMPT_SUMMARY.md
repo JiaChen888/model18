@@ -33,3 +33,82 @@ Model naming:
 ```text
 model18 = modular DSSP-to-3D ensemble framework
 ```
+
+## Latest Completed Work: Clean-300 Training, Ablation, and SCI Figures
+
+Date context: 2026-06-12.
+
+User requested autonomous completion of model18 training and documentation from the fixed clean-300 preprocessing database. Completed tasks:
+
+```text
+1. Verified clean-300 manifest and training outputs.
+2. Added scripts/run_model18_clean300_experiments.py for reproducible epoch/ablation runs.
+3. Added scripts/aggregate_model18_clean300_results.py for metric aggregation and SCI figure generation.
+4. Completed epoch100/300/500 comparison under sample_stride=500.
+5. Completed ablations: no dynamic, no contact_features, no contact_map_stats, no all-contact, no residue_features, no position.
+6. Generated 300 dpi SCI figures and final metric CSV/Markdown reports.
+7. Updated README, training documentation, SCI figure/writing plan, and this chat/task summary.
+```
+
+Final result files:
+
+```text
+docs/MODEL18_CLEAN300_FINAL_RESULTS.md
+docs/MODEL18_CLEAN300_EPOCH_AND_ABLATION_RESULTS.csv
+outputs/sci_figures/model18_clean300_epoch_comparison.png
+outputs/sci_figures/model18_clean300_ablation_comparison.png
+outputs/sci_figures/model18_clean300_sample_distribution.png
+```
+
+Key result summary:
+
+```text
+Dense full-model reference, stride100:
+  accuracy = 0.8162
+  macro F1 = 0.5387
+
+Unified full-model baseline, stride500 epoch100:
+  accuracy = 0.8097
+  macro F1 = 0.5567
+
+Unified no-position variant, stride500 epoch100:
+  accuracy = 0.8110
+  macro F1 = 0.5613
+
+Epoch300/500 did not improve over epoch100.
+All-contact removal caused the largest ablation drop.
+```
+
+Current scientific conclusion:
+
+```text
+model18 should be presented as a modular dynamic DSSP/contact/geometry framework for PolyQ IDP ensemble reconstruction. It should not be described as deterministic 3D reconstruction from DSSP alone. The best current route is dynamic DSSP probability -> frame-level geometry/contact scoring -> top-k traceable MD/SMD conformer retrieval -> PDB/PyMOL/VMD visualization.
+```
+
+Prompt summary for another Codex merge task:
+
+```text
+Continue from model18_modular_polyq_ensemble. Preserve model12-centered DSSP classifier logic and model18 modular pipeline. Use the fixed clean-300 manifest at outputs/preprocess_db_current_clean_300/model18_training_manifest.csv. Do not switch to the incomplete 372-sample dataset. Current best training outputs and figures are already generated. Next high-value improvement is to replace row-level contact-map statistics with full LxL contact/distance map CNN/GNN or residue-level temporal TCN/GRU/Transformer, while keeping the model18 retrieval/PDB/export modules unchanged.
+```
+
+## Latest User Request: Restore Full Contact-Map Model6/11/12 Branch
+
+The user clarified that the older IDPss/model6 or earlier framework already used contact-map style information and asked to add this back into the dynamic/physical DSSP prediction route, then fuse it toward model11/model12. Completed implementation:
+
+```text
+model18/full_contact_dataset.py
+model18/full_contact_map_model.py
+scripts/train_model18_full_contact_map.py
+docs/MODEL18_FULL_CONTACT_MAP_MODEL11_MODEL12_INTEGRATION.md
+outputs/train_smoke_full_contact_epoch1/
+```
+
+Smoke test result:
+
+```text
+CUDA full-contact branch ran successfully.
+train frames = 300, test frames = 120
+accuracy = 0.7271, macro F1 = 0.1203 after 1 epoch small subset
+```
+
+Interpretation: this is not yet the formal 100/300/500 result; it proves the full LxL contact/distance map CNN/GNN branch can read clean300 and train. Next formal comparison should run `scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 500`.

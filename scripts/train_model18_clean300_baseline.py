@@ -74,6 +74,7 @@ def main() -> None:
     parser.add_argument("--max-test-rows", type=int, default=None)
     parser.add_argument("--disable", action="append", default=[])
     parser.add_argument("--seed", type=int, default=18)
+    parser.add_argument("--save-row-metadata", action="store_true", help="Save sampled train/test row metadata CSV files")
     args = parser.parse_args()
 
     torch.manual_seed(args.seed)
@@ -124,8 +125,9 @@ def main() -> None:
     torch.save({"model_state": model.state_dict(), "mean": mean, "std": std, "args": vars(args), "feature_switches": switches.to_dict()}, outdir / "model18_clean300_baseline.pt")
     pd.DataFrame(history).to_csv(outdir / "training_history.csv", index=False)
     pd.DataFrame([final_metrics]).to_csv(outdir / "test_metrics.csv", index=False)
-    meta_train.to_csv(outdir / "train_rows_metadata.csv", index=False)
-    meta_test.to_csv(outdir / "test_rows_metadata.csv", index=False)
+    if args.save_row_metadata:
+        meta_train.to_csv(outdir / "train_rows_metadata.csv", index=False)
+        meta_test.to_csv(outdir / "test_rows_metadata.csv", index=False)
     summary = {"train": info_train, "test": info_test, "final_metrics": final_metrics, "device": device, "args": vars(args)}
     (outdir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print("saved", outdir)

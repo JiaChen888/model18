@@ -102,6 +102,38 @@ device = cuda
 
 Full epoch commands and ablation commands are documented in `docs/MODEL18_CLEAN300_TRAINING_AND_ABLATION.md`.
 
+Final clean-300 result summary:
+
+```text
+Best dense full-model run:
+  training_outputs_clean300_epoch100
+  sample_stride = 100
+  top-1 accuracy = 0.8162
+  macro F1 = 0.5387
+
+Best unified stride500 model18 variant:
+  training_outputs_clean300_ablation_no_position_epoch100
+  top-1 accuracy = 0.8110
+  macro F1 = 0.5613
+
+Full stride500 baseline:
+  training_outputs_clean300_epoch100_stride500
+  top-1 accuracy = 0.8097
+  macro F1 = 0.5567
+```
+
+Epoch 300 and 500 did not improve over epoch 100 on the fixed split, indicating mild overfitting with longer optimization. Contact and dynamic features were the most useful feature groups in ablation. Explicit residue position was slightly harmful under the current split and is therefore treated as an optional calibration feature rather than a required input.
+
+Paper-ready result files:
+
+```text
+docs/MODEL18_CLEAN300_FINAL_RESULTS.md
+docs/MODEL18_CLEAN300_EPOCH_AND_ABLATION_RESULTS.csv
+outputs/sci_figures/model18_clean300_epoch_comparison.png
+outputs/sci_figures/model18_clean300_ablation_comparison.png
+outputs/sci_figures/model18_clean300_sample_distribution.png
+```
+
 ## Ablation Switches
 
 model18 reserves configurable ablation switches for later systematic experiments:
@@ -293,4 +325,23 @@ Use these as the main manuscript candidates:
 5. outputs/sci_figures/demo_q36_score_decomposition.png
 6. outputs/sci_figures/demo_q46_score_decomposition.png
 7. PyMOL ray-traced images generated from open_in_pymol.pml
+```
+
+## Full Contact-Map CNN/GNN Branch
+
+model18 now includes a full LxL contact/distance map branch derived from the older IDPss/model6/model11/model12 graph-contact design:
+
+```text
+model18/full_contact_dataset.py
+model18/full_contact_map_model.py
+scripts/train_model18_full_contact_map.py
+docs/MODEL18_FULL_CONTACT_MAP_MODEL11_MODEL12_INTEGRATION.md
+```
+
+This branch reads `contact_maps.npy` as a complete residue-residue matrix, converts it to a sparse top-k contact-strength graph, encodes contact rows with CNN, applies DenseGraphSAGE message passing, and fuses the graph embedding with dynamic/contact/residue features for per-residue SS8 prediction. A CUDA smoke test completed successfully in `outputs/train_smoke_full_contact_epoch1/`.
+
+Recommended formal comparison:
+
+```bash
+python3 scripts/train_model18_full_contact_map.py --epochs 100 --sample-stride 500 --batch-size 128 --outdir training_outputs_clean300_full_contact_epoch100
 ```

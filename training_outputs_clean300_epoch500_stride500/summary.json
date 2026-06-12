@@ -1,0 +1,56 @@
+{
+  "train": {
+    "split": "train",
+    "samples": 248,
+    "rows": 130078,
+    "feature_dim": 78,
+    "sample_stride": 500,
+    "feature_switches": {
+      "use_dynamic": true,
+      "use_contact_features": true,
+      "use_contact_map_stats": true,
+      "use_residue_features": true,
+      "use_residue_position": true
+    }
+  },
+  "test": {
+    "split": "test",
+    "samples": 52,
+    "rows": 28496,
+    "feature_dim": 78,
+    "sample_stride": 500,
+    "feature_switches": {
+      "use_dynamic": true,
+      "use_contact_features": true,
+      "use_contact_map_stats": true,
+      "use_residue_features": true,
+      "use_residue_position": true
+    }
+  },
+  "final_metrics": {
+    "accuracy": 0.8008492419988771,
+    "precision_macro": 0.5467804235231474,
+    "recall_macro": 0.5416533447414558,
+    "f1_macro": 0.5400436097452246,
+    "mean_confidence": 0.9156066179275513,
+    "n": 28496,
+    "epoch": 500
+  },
+  "device": "cuda",
+  "args": {
+    "manifest": "/home/zj/jyxl/test_project/516/graph_idpss/model18_modular_polyq_ensemble/outputs/preprocess_db_current_clean_300/model18_training_manifest.csv",
+    "outdir": "/home/zj/jyxl/test_project/516/graph_idpss/model18_modular_polyq_ensemble/training_outputs_clean300_epoch500_stride500",
+    "epochs": 500,
+    "sample_stride": 500,
+    "batch_size": 4096,
+    "lr": 0.001,
+    "width": 256,
+    "depth": 3,
+    "dropout": 0.1,
+    "max_train_rows": null,
+    "max_test_rows": null,
+    "disable": [],
+    "seed": 18,
+    "save_row_metadata": false
+  }
+}

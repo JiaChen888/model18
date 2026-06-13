@@ -28,12 +28,22 @@ class Clean300Model19WindowDataset(Dataset):
         max_frames: int | None = None,
         switches: FullContactSwitches | None = None,
         seed: int = 19,
+        force_window_manifest: str | Path | None = None,
     ):
         self.manifest_csv = Path(manifest_csv)
         self.split = split
         self.sample_stride = int(sample_stride)
         self.window_size = int(window_size)
         self.switches = switches or FullContactSwitches()
+        self.force_window_manifest = Path(force_window_manifest) if force_window_manifest else None
+        self.force_window_index: dict[int, dict[str, str]] = {}
+        if self.force_window_manifest and self.force_window_manifest.exists():
+            fw = pd.read_csv(self.force_window_manifest)
+            for _, fwrow in fw.iterrows():
+                self.force_window_index[int(fwrow["sample_id_int"])] = {
+                    "force_window_path": str(fwrow["force_window_path"]),
+                    "force_window_mask_path": str(fwrow["force_window_mask_path"]),
+                }
         manifest = pd.read_csv(self.manifest_csv)
         df = manifest[(manifest["ready"] == True) & (manifest["split"] == split)].copy()
         df = df.sort_values("sample_id_int").reset_index(drop=True)
@@ -55,6 +65,8 @@ class Clean300Model19WindowDataset(Dataset):
         self.rows = rows
         self._cache_key: str | None = None
         self._cache: dict[str, np.ndarray] = {}
+        self._force_cache_key: int | None = None
+        self._force_cache: dict[str, np.ndarray] = {}
 
     def __len__(self) -> int:
         return len(self.rows)
@@ -74,6 +86,19 @@ class Clean300Model19WindowDataset(Dataset):
         }
         return self._cache
 
+    def _load_force_windows(self, sample_id: int) -> dict[str, np.ndarray] | None:
+        paths = self.force_window_index.get(int(sample_id))
+        if not paths:
+            return None
+        if self._force_cache_key == int(sample_id):
+            return self._force_cache
+        self._force_cache_key = int(sample_id)
+        self._force_cache = {
+            "force_window": np.load(paths["force_window_path"], mmap_mode="r"),
+            "force_window_mask": np.load(paths["force_window_mask_path"], mmap_mode="r"),
+        }
+        return self._force_cache
+
     def _window(self, dyn: np.ndarray, contact_feat: np.ndarray, frame: int) -> np.ndarray:
         half = self.window_size // 2
         idx = np.arange(frame - half, frame - half + self.window_size)
@@ -90,7 +115,13 @@ class Clean300Model19WindowDataset(Dataset):
         dyn = np.asarray(data["dynamic"][f], dtype=np.float32).copy()
         cfeat = np.asarray(data["contact_features"][f], dtype=np.float32).copy()
         rfeat = np.asarray(data["residue_features"], dtype=np.float32).copy()
-        force_proxy = self._window(data["dynamic"], data["contact_features"], f)
+        force_data = self._load_force_windows(int(row["sample_id"]))
+        if force_data is not None and f < force_data["force_window"].shape[0]:
+            force_proxy = np.asarray(force_data["force_window"][f], dtype=np.float32).copy().reshape(-1, 1)
+            force_mask = np.asarray(force_data["force_window_mask"][f], dtype=np.float32).copy()
+        else:
+            force_proxy = self._window(data["dynamic"], data["contact_features"], f)
+            force_mask = np.ones(force_proxy.shape[0], dtype=np.float32)
         n = int(mask.shape[0])
         length = int(row["length"])
         pos = np.arange(n, dtype=np.float32) / max(length - 1, 1)
@@ -100,6 +131,7 @@ class Clean300Model19WindowDataset(Dataset):
             "dynamic": torch.from_numpy(dyn),
             "contact_features": torch.from_numpy(cfeat),
             "force_window_proxy": torch.from_numpy(force_proxy),
+            "force_window_mask": torch.from_numpy(force_mask),
             "residue_features": torch.from_numpy(rfeat),
             "position": torch.from_numpy(np.stack([pos, length_feat], axis=-1)),
             "target": torch.from_numpy(y),
@@ -116,4 +148,6 @@ class Clean300Model19WindowDataset(Dataset):
             "sample_stride": self.sample_stride,
             "window_size": self.window_size,
             "feature_switches": self.switches.to_dict(),
+            "force_window_manifest": str(self.force_window_manifest) if self.force_window_manifest else None,
+            "force_window_samples": len(self.force_window_index),
         }

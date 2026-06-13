@@ -46,6 +46,7 @@ def main() -> None:
     parser.add_argument("--window-encoder", choices=["transformer", "gru"], default="transformer")
     parser.add_argument("--contact-aux-weight", type=float, default=0.02)
     parser.add_argument("--window-aux-weight", type=float, default=0.0)
+    parser.add_argument("--force-window-manifest", default=None, help="Optional manifest from preprocess_model12_force_windows.py")
     parser.add_argument("--max-train-frames", type=int, default=None)
     parser.add_argument("--max-test-frames", type=int, default=None)
     parser.add_argument("--disable", action="append", default=[])
@@ -57,8 +58,26 @@ def main() -> None:
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     switches = FullContactSwitches.from_ablation_names(args.disable)
-    train_ds = Clean300Model19WindowDataset(args.manifest, "train", args.sample_stride, args.window_size, args.max_train_frames, switches, args.seed)
-    test_ds = Clean300Model19WindowDataset(args.manifest, "test", args.sample_stride, args.window_size, args.max_test_frames, switches, args.seed + 1)
+    train_ds = Clean300Model19WindowDataset(
+        args.manifest,
+        "train",
+        args.sample_stride,
+        args.window_size,
+        args.max_train_frames,
+        switches,
+        args.seed,
+        args.force_window_manifest,
+    )
+    test_ds = Clean300Model19WindowDataset(
+        args.manifest,
+        "test",
+        args.sample_stride,
+        args.window_size,
+        args.max_test_frames,
+        switches,
+        args.seed + 1,
+        args.force_window_manifest,
+    )
     n_residue, n_dynamic, n_contact, n_window = infer_dims(train_ds)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=0)
     test_loader = DataLoader(test_ds, batch_size=args.batch_size, shuffle=False, num_workers=0)

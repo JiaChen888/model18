@@ -8,3 +8,11 @@ outputs/*/pdb/
 *.trr
 *.tpr
 *.edr
+
+# Generated model12-style raw force-window databases are reproducible and large.
+outputs/preprocess_force_windows_clean300_model12_style/
+outputs/preprocess_force_windows_clean300_model12_style_smoke/
+
+# Smoke-test outputs are reproducible temporary checks.
+outputs/train_smoke_model19_raw_force_epoch1/
+outputs/train_smoke_model19_raw_force_epoch10/

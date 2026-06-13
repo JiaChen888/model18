@@ -134,6 +134,78 @@ outputs/sci_figures/model18_clean300_ablation_comparison.png
 outputs/sci_figures/model18_clean300_sample_distribution.png
 ```
 
+
+## Model19 Raw Force-Window Preprocessing
+
+To restore the model12-style physical force input, model19 now supports a precomputed raw force-window database. For every clean300 DSSP/contact frame, the preprocessing exports the previous 25 raw pull-force points using the original model12 rule:
+
+```text
+force_end = frame_index * 5 + 1
+force_start = max(0, force_end - window_size * 5)
+```
+
+Generated database:
+
+```text
+outputs/preprocess_force_windows_clean300_model12_style/
+  force_window_manifest.csv
+  summary.json
+  {sample_id}/force_window.npy
+  {sample_id}/force_window_mask.npy
+  {sample_id}/force_window_metadata.csv
+```
+
+Current clean300 export:
+
+```text
+samples = 300
+total force windows = 2,117,264
+window_size = 5
+force_len = 25
+frame_stride = 1
+local size = about 946 MB
+```
+
+Run preprocessing:
+
+```bash
+python3 scripts/preprocess_model12_force_windows.py \
+  --window-size 5 \
+  --frame-stride 1 \
+  --outdir outputs/preprocess_force_windows_clean300_model12_style
+```
+
+Train model19 with true raw force windows:
+
+```bash
+python3 scripts/train_model19_model12_plus_contact.py \
+  --epochs 100 \
+  --sample-stride 500 \
+  --window-size 5 \
+  --batch-size 128 \
+  --force-window-manifest outputs/preprocess_force_windows_clean300_model12_style/force_window_manifest.csv \
+  --outdir training_outputs_clean300_model19_raw_force_epoch100_stride500
+```
+
+Result at epoch100/stride500:
+
+```text
+final accuracy = 0.8411
+final macro F1 = 0.5702
+best epoch = 90
+best accuracy = 0.8421
+best macro F1 = 0.5843
+```
+
+The raw force-window branch improves over the previous model19 proxy temporal input and nearly matches model18 full-contact at stride500. See:
+
+```text
+docs/MODEL19_RAW_FORCE_WINDOW_PREPROCESSING.md
+docs/MODEL19_RAW_FORCE_WINDOW_RESULTS.md
+outputs/model19_raw_force_comparison/model19_raw_force_comparison.csv
+outputs/model19_raw_force_comparison/model19_raw_force_vs_previous_models.png
+```
+
 ## Ablation Switches
 
 model18 reserves configurable ablation switches for later systematic experiments:

@@ -1,0 +1,7 @@
+model,accuracy,f1_macro,source
+model12 historical epoch100,0.8805,,historical clean300 summary
+model12 historical epoch500,0.8875,,historical clean300 summary
+model18 full-contact stride500,0.843,0.5871,previous run
+model18 full-contact stride100,0.8736,0.6441,previous run
+model19 proxy stride500,0.8315,0.5472,previous run
+model19 raw-force stride500,0.8410654126895003,0.5702442325347441,training_outputs_clean300_model19_raw_force_epoch100_stride500/test_metrics.csv

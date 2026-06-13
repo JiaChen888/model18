@@ -408,3 +408,32 @@ docs/MODEL12_VS_MODEL18_FULL_CONTACT_CLEAN300_COMPARISON.md
 outputs/sci_figures/model12_vs_model18_full_contact_clean300_comparison.png
 training_outputs_clean300_full_contact_epoch100_stride100/
 ```
+
+## Model19 / Model12-Plus-Contact Status
+
+model19 has been implemented as a model12-style temporal window branch fused with the model18 full LxL contact-map CNN/GNN branch:
+
+```text
+model18/model19_dataset.py
+model18/model19_model.py
+scripts/train_model19_model12_plus_contact.py
+```
+
+Current clean300 does not contain raw force-window tensors, so the first model19 test used a proxy window built from `dynamic_features + contact_features`.
+
+Formal stride500 result:
+
+```text
+model18 full-contact:  accuracy = 0.8430, macro F1 = 0.5871
+model19 proxy-window:  accuracy = 0.8315, macro F1 = 0.5472
+```
+
+Conclusion: the architecture is implemented and stable, but the proxy window does not recover model12's raw force-window advantage. The next required step is to export raw force-window tensors from preprocessing and rerun model19.
+
+See:
+
+```text
+docs/MODEL19_MODEL12_PLUS_CONTACT_PROXY_RESULT.md
+outputs/sci_figures/model19_proxy_window_vs_model18_full_contact.png
+training_outputs_clean300_model19_epoch100_stride500/
+```

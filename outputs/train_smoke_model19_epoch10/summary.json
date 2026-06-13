@@ -1,0 +1,69 @@
+{
+  "train": {
+    "split": "train",
+    "frames": 600,
+    "sample_stride": 1000,
+    "window_size": 5,
+    "feature_switches": {
+      "use_dynamic": true,
+      "use_contact_features": true,
+      "use_residue_features": true,
+      "use_residue_position": true,
+      "use_full_contact_map": true
+    }
+  },
+  "test": {
+    "split": "test",
+    "frames": 200,
+    "sample_stride": 1000,
+    "window_size": 5,
+    "feature_switches": {
+      "use_dynamic": true,
+      "use_contact_features": true,
+      "use_residue_features": true,
+      "use_residue_position": true,
+      "use_full_contact_map": true
+    }
+  },
+  "final_metrics": {
+    "accuracy": 0.7709039548022599,
+    "precision_macro": 0.4052148288250134,
+    "recall_macro": 0.37199961692748895,
+    "f1_macro": 0.3670995611950283,
+    "mean_confidence": 0.7402387857437134,
+    "n": 7080,
+    "epoch": 10
+  },
+  "best_metrics": {
+    "accuracy": 0.7709039548022599,
+    "precision_macro": 0.4052148288250134,
+    "recall_macro": 0.37199961692748895,
+    "f1_macro": 0.3670995611950283,
+    "mean_confidence": 0.7402387857437134,
+    "n": 7080,
+    "epoch": 10,
+    "train_loss": 0.18719222396612167
+  },
+  "device": "cuda",
+  "args": {
+    "manifest": "/home/zj/jyxl/test_project/516/graph_idpss/model18_modular_polyq_ensemble/outputs/preprocess_db_current_clean_300/model18_training_manifest.csv",
+    "outdir": "outputs/train_smoke_model19_epoch10",
+    "epochs": 10,
+    "sample_stride": 1000,
+    "window_size": 5,
+    "batch_size": 64,
+    "lr": 0.0003,
+    "dropout": 0.2,
+    "hidden": 128,
+    "graph_dim": 64,
+    "top_n": 12,
+    "window_encoder": "transformer",
+    "contact_aux_weight": 0.02,
+    "window_aux_weight": 0.0,
+    "max_train_frames": 600,
+    "max_test_frames": 200,
+    "disable": [],
+    "seed": 19
+  },
+  "model": "Model19DSSPModel"
+}

@@ -164,3 +164,45 @@ test targets = 149,924
 ```
 
 Conclusion: model18 full-contact is close but still slightly below historical model12 accuracy. The remaining gap likely comes from model12's old window_size=5 force-window encoder, dynamic auxiliary heads, and regularization/early stopping. Next strongest route: model19/model12-plus-contact-map = model12 force-window/dynamic heads + model18 full LxL contact-map CNN/GNN + model18 3D retrieval.
+
+## Latest Model19 Implementation Record
+
+Implemented model19/model12-plus-contact:
+
+```text
+model18/model19_dataset.py
+model18/model19_model.py
+scripts/train_model19_model12_plus_contact.py
+```
+
+Design:
+
+```text
+model18 full LxL contact-map CNN/GNN
++ model12-style temporal window encoder
++ dynamic/contact/residue fusion
+```
+
+Important data finding:
+
+```text
+clean300 sample folders do not contain raw force-window or pullf arrays.
+Available arrays are dynamic_features, contact_features, contact_maps, dssp_labels, residue_features, y_masks.
+```
+
+Therefore the first model19 version used a proxy temporal window built from dynamic_features + contact_features. Formal result:
+
+```text
+model19 proxy-window stride500 epoch100:
+accuracy = 0.8315
+macro F1 = 0.5472
+```
+
+This is below model18 full-contact stride500:
+
+```text
+accuracy = 0.8430
+macro F1 = 0.5871
+```
+
+Conclusion: model19 framework is ready, but true improvement requires raw force-window preprocessing. Proxy windows are not enough.
